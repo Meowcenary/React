@@ -1,0 +1,101 @@
+[Getting Started]
+
+const element = (
+  <h1 className="greeting">
+    Hello, world!
+  </h1>
+);
+
+is identical to this...
+
+const element = React.createElement(
+  'h1',
+  {className: 'greeting'},
+  'Hello, world!'
+);
+
+react uses camel case to name properties, so attributes
+such as class become className as seen above
+
+_______________________________________________________
+
+[Rendering Elements]
+
+In a pure React app there will usually be a single root node 
+that you render to. When you integrate you can have many 
+isolated root nodes.
+
+Here is an example of rendering...
+
+ReactDOM.render(
+  element,
+  document.getElementById('root')
+);
+
+React elements are immutable, once created they can not
+change. With what I currently know, the way to update
+the UI is to create a new element and replace whatever
+element was there.
+
+see the example react_update.html for how this works.
+
+Note that in the example the {} braces allow for some
+javascript to be evaluated.
+
+The cool thing about react_update.html, and react generally
+is that react can determine what needs to be updated in the
+DOM each time and ONLY update that. In the example there is
+a new element being created each time, but it only needs to
+update the time and, because it's react, will only do that.
+_______________________________________________________
+
+[Components and Props]
+
+When I think of react, I think of how you can apply OOP
+principles to front end coding by breaking things into
+reusable parts. That is where components come into the
+picture.
+
+Components are similar to JS functions, tehy accept 
+some arbitrary input that is apparently called "props"
+and then return React elements describing what should
+appear on the screen.
+
+The function below and the ES6 class below that are
+considered equivalent in terms of React
+
+function Welcome(props) {
+  return <h1>Hello, {props.name}</h1>;
+}
+
+class Welcome extends React.Component {
+  render() {
+    return <h1>Hello, {this.props.name}</h1>;
+  }
+}
+
+Both return react elements using a props argument
+The class has some additional features, but that will
+come later
+
+In addition to DOM tags, it's possible to use user defined
+defined components. When React sees an element representing
+a user defined component it passes JSX attributes to this
+componenet as a single object called 'props'
+
+basic_user_components.html is an example showing how props
+can be used with user defined components to create a react
+element with a function call
+
+1. We call ReactDOM.render() with the <Welcome name="Sara" /> element.
+2. React calls the Welcome component with {name: 'Sara'} as the props. //dat JSON
+3. Our Welcome component returns a <h1>Hello, Sara</h1> element as the result.
+4. React DOM efficiently updates the DOM to match <h1>Hello, Sara</h1>.
+
+---------
+IMPORTANT
+---------
+Always start component names with a capital letter. For example, <div /> 
+represents a DOM tag, but <Welcome /> represents a component and requires 
+Welcome to be in scope.
+
